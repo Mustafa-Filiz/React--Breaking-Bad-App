@@ -15,8 +15,6 @@ function Quotes() {
     const status = useSelector(statusSelector);
     const error = useSelector(errorSelector);
 
-    console.log(quotes);
-
     useEffect(() => {
         if (status === 'idle') {
             dispatch(fetchQuotes());
