@@ -6,23 +6,24 @@ import { Link } from 'react-router-dom';
 
 function Home() {
     const characters = useSelector((state) => state.characters.items);
-    const isLoading = useSelector((state) => state.characters.isLoading);
+    const status = useSelector((state) => state.characters.status);
     const error = useSelector((state) => state.characters.error);
     const nextPage = useSelector((state) => state.characters.page);
     const hasNextPage = useSelector((state) => state.characters.hasNextPage);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchCharacters());
-    }, [dispatch]);
+        if (status === 'idle') {
+            dispatch(fetchCharacters());
+        }
+    }, [dispatch, status]);
 
-    if (error) {
+    if (status === 'failed') {
         return <h3>{error}</h3>;
     }
 
     return (
         <div>
-            <h1>Characters</h1>
             <Masonry
                 breakpointCols={4}
                 className="my-masonry-grid"
@@ -42,8 +43,8 @@ function Home() {
                 ))}
             </Masonry>
             <div style={{ padding: '0 0 50px 0' }}>
-                {isLoading && <h3>Loading...</h3>}
-                {hasNextPage && !isLoading && (
+                {status === 'loading' && <h3>Loading...</h3>}
+                {hasNextPage && status !== 'loading' && (
                     <button onClick={() => dispatch(fetchCharacters(nextPage))}>
                         Load More ({nextPage})
                     </button>

@@ -31,3 +31,25 @@
 .character {
   width: 100%;
 }
+
+nav ul{
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin: 0 0 1rem;
+  background-color: antiquewhite;
+  padding: 1rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  padding: 1rem;
+}
+
+nav ul li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: coral;
+}
+

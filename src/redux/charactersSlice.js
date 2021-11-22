@@ -19,8 +19,11 @@ export const charactersSlice = createSlice({
     name: 'characters',
     initialState: {
         items: [],
-        isLoading: false,
+        status: 'idle',
         error: '',
+        details: [],
+        detailsStatus: 'idle',
+        detailsError: '',
         page: 0,
         hasNextPage: true,
     },
@@ -28,11 +31,11 @@ export const charactersSlice = createSlice({
     extraReducers: {
         // fetch data
         [fetchCharacters.pending]: (state) => {
-            state.isLoading = true;
+            state.status = 'loading';
         },
         [fetchCharacters.fulfilled]: (state, action) => {
             state.items = [...state.items, ...action.payload];
-            state.isLoading = false;
+            state.status = 'succeeded';
             state.page = state.page + 1;
 
             if (action.payload.length < 12) {
@@ -41,7 +44,7 @@ export const charactersSlice = createSlice({
         },
         [fetchCharacters.rejected]: (state, action) => {
             state.error = action.error.message;
-            state.isLoading = false;
+            state.status = 'failed';
         },
     },
 });
