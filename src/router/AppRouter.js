@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Detail from '../pages/Detail';
 import Home from '../pages/Home';
+import QuoteDetail from '../pages/QuoteDetail';
 import Quotes from '../pages/Quotes';
 
 function AppRouter() {
@@ -13,6 +14,7 @@ function AppRouter() {
                 <Route exact path="/" component={Home} />
                 <Route path="/char/:char_id" component={Detail} />
                 <Route path="/quotes" component={Quotes} />
+                <Route path="/quotes/:quote_id" component={QuoteDetail} />
             </Switch>
         </Router>
     );
